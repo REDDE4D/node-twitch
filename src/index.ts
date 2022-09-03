@@ -34,7 +34,7 @@ import {
 	ModifyChannelInformationOptions,
 	UpdateUserOptions,
 	CreateClipOptions,
-	GetModeratorsOptions, GetCodeStatusOptions, ReplaceStreamTagsOptions, StartCommercialOptions
+	GetModeratorsOptions, GetCodeStatusOptions, ReplaceStreamTagsOptions, StartCommercialOptions, GetScheduleOptions
 } from "./types/options";
 import {
 	APIBitsLeaderboardResponse,
@@ -56,7 +56,7 @@ import {
 	APIExtensionResponse,
 	APIActiveUserExtensionResponse,
 	APICreateClipResponse,
-	APIModeratorResponse, APICodeStatusResponse, APICommercialResponse, APIEmotesResponse, APIBadgesResponse
+	APIModeratorResponse, APICodeStatusResponse, APICommercialResponse, APIEmotesResponse, APIBadgesResponse, APIScheduleResponse
 } from "./types/responses";
 
 /** Twitch API */
@@ -542,6 +542,14 @@ export default class TwitchApi extends EventEmitter{
 
 		return this._get<APIBadgesResponse>(endpoint);
 	}
+	
+	/** Gets the Schedule for a specified channel. */
+	async getSchedule(options: GetScheduleOptions): Promise<APIScheduleResponse>{
+		const query = `?${parseOptions(options)}`;
+		const endpoint = `/schedule${query}`;
+		      
+		return this._get<APIScheduleResponse>(endpoint);
+	}
 
 	/*********************************
 	Methods requiring user permissions
@@ -748,4 +756,5 @@ export default class TwitchApi extends EventEmitter{
 
 		return this._post(endpoint);
 	}
+	
 }
