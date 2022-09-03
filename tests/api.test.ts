@@ -267,4 +267,10 @@ describe("unit tests for endpoints requiring user authentication.", () => {
 
 		expect(result).toBeDefined();
 	});
+	
+	test("Should get channel Schedule", async () => {
+		const result = await api.getSchedule(broadcasterId);
+
+		expect(result.data).toBeInstanceOf(Array);
+	});
 });
